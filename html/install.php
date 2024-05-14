@@ -1,14 +1,16 @@
 <?php
+	require 'connectDB.php';
+
 	//Connect to database
     $servername = "localhost";
     $username = "root";		//put your phpmyadmin username.(default is "root")
     $password = "";			//if your phpmyadmin has a password put it here.(default is "root")
-    $dbname = "";
     
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Leave out the DB name since we are creating it
+	$conn = new mysqli($servername, $username, $password);
 
 	// Create database
-	$sql = "CREATE DATABASE biometricattendace";
+	$sql = "CREATE DATABASE ".$dbname;
 	if ($conn->query($sql) === TRUE) {
 	    echo "Database created successfully";
 	} else {
@@ -16,8 +18,6 @@
 	}
 
 	echo "<br>";
-
-	$dbname = "biometricattendace";
     
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -37,9 +37,9 @@
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 	if ($conn->query($sql) === TRUE) {
-	    echo "Table users created successfully";
+	    echo "Table users created successfully<br>";
 	} else {
-	    echo "Error creating table: " . $conn->error;
+	    echo "Error creating table: " . $conn->error."<br>";
 	}
 
 	$sql = "CREATE TABLE IF NOT EXISTS `users_logs` (
@@ -53,9 +53,9 @@
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 	if ($conn->query($sql) === TRUE) {
-	    echo "Table users_logs created successfully";
+	    echo "Table users_logs created successfully<br>";
 	} else {
-	    echo "Error creating table: " . $conn->error;
+	    echo "Error creating table: " . $conn->error."<br>";
 	}
 		
 	$conn->close();
