@@ -24,8 +24,8 @@
 	// sql to create table
 	$sql = "CREATE TABLE IF NOT EXISTS `users` (
 			`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			`username` varchar(100),
-			`serialnumber` double,
+			`username` varchar(100) null,
+			`serialnumber` double null,
 			`gender` varchar(10),
 			`email` varchar(50),
 			`fingerprint_id` int(11),
