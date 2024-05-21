@@ -12,9 +12,9 @@
 	// Create database
 	$sql = "CREATE DATABASE ".$dbname;
 	if ($conn->query($sql) === TRUE) {
-	    echo "Database created successfully";
+	    echo "Database created successfully<br>\n";
 	} else {
-	    echo "Error creating database: " . $conn->error;
+	    echo "Error creating database: " . $conn->error."<br>\n";
 	}
 
 	echo "<br>";
@@ -24,10 +24,10 @@
 	// sql to create table
 	$sql = "CREATE TABLE IF NOT EXISTS `users` (
 			`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			`username` varchar(100) null,
-			`serialnumber` double null,
-			`gender` varchar(10),
-			`email` varchar(50),
+			`username` varchar(100) DEFAULT NULL,
+			`serialnumber` double DEFAULT NULL,
+			`gender` varchar(10) DEFAULT NULL,
+			`email` varchar(50) DEFAULT NULL,
 			`fingerprint_id` int(11),
 			`fingerprint_select` tinyint(1) NOT NULL DEFAULT '0',
 			`user_date` date,
@@ -37,9 +37,9 @@
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 	if ($conn->query($sql) === TRUE) {
-	    echo "Table users created successfully<br>";
+	    echo "Table users created successfully<br>\n";
 	} else {
-	    echo "Error creating table: " . $conn->error."<br>";
+	    echo "Error creating table: " . $conn->error."<br>\n";
 	}
 
 	$sql = "CREATE TABLE IF NOT EXISTS `users_logs` (
@@ -53,9 +53,9 @@
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 	if ($conn->query($sql) === TRUE) {
-	    echo "Table users_logs created successfully<br>";
+	    echo "Table users_logs created successfully<br>\n";
 	} else {
-	    echo "Error creating table: " . $conn->error."<br>";
+	    echo "Error creating table: " . $conn->error."<br>\n";
 	}
 		
 	$conn->close();
