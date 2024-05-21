@@ -1,10 +1,5 @@
 <?php
 	require 'connectDB.php';
-
-	//Connect to database
-	$servername = "localhost";
-	$username = "root";		//put your phpmyadmin username.(default is "root")
-	$password = "";			//if your phpmyadmin has a password put it here.(default is "root")
     
 	// Leave out the DB name since we are creating it
 	$conn = new mysqli($servername, $username, $password);
