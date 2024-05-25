@@ -1,6 +1,3 @@
-//Prateek
-//www.prateeks.in
-
 #include <SPI.h>
 #include <Wire.h>
 #include <WiFiClient.h> 
@@ -10,21 +7,26 @@
 #include <ESP8266HTTPClient.h>
 #include <Adafruit_GFX.h>          
 #include <Adafruit_SSD1306.h>     
-#include <Adafruit_Fingerprint.h>  
+#include <Adafruit_Fingerprint.h>
+
 #define Finger_Rx 0 //D3
 #define Finger_Tx 2 //D4
 #define SCREEN_WIDTH 128 
 #define SCREEN_HEIGHT 64 
-#define OLED_RESET     0 
+#define OLED_RESET     0
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 SoftwareSerial mySerial(Finger_Rx, Finger_Tx);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-const char *ssid = "JustDoElectronics";
-const char *password = "prateek";
-String postData ; 
+
+const char *ssid = "wifi";
+const char *password = "password";
+
+String postData; 
 String link = "http://192.168.0.108/biometricattendance/getdata.php"; 
 int FingerID = 0;     
 uint8_t id;
+
 #define Wifi_start_width 54
 #define Wifi_start_height 49
 const uint8_t PROGMEM Wifi_start_bits[] = {
@@ -78,6 +80,7 @@ const uint8_t PROGMEM Wifi_start_bits[] = {
 ,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 ,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
+
 #define Wifi_connected_width 63
 #define Wifi_connected_height 49
 const uint8_t PROGMEM Wifi_connected_bits[] = {
@@ -131,6 +134,7 @@ const uint8_t PROGMEM Wifi_connected_bits[] = {
 ,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 ,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
+
 #define FinPr_start_width 64
 #define FinPr_start_height 64
 const uint8_t PROGMEM FinPr_start_bits[] = {
@@ -199,6 +203,7 @@ const uint8_t PROGMEM FinPr_start_bits[] = {
 ,0x00,0x00,0x00,0x1e,0x0e,0x00,0x00,0x00
 ,0x00,0x00,0x00,0x18,0x00,0x00,0x00,0x00
 };
+
 #define FinPr_valid_width 64
 #define FinPr_valid_height 64
 const uint8_t PROGMEM FinPr_valid_bits[] = {
@@ -267,6 +272,7 @@ const uint8_t PROGMEM FinPr_valid_bits[] = {
 ,0x00,0x00,0x03,0xe0,0xe3,0xff,0xe0,0x00
 ,0x00,0x00,0x01,0x80,0x00,0x7f,0x00,0x00
 };
+
 #define FinPr_invalid_width 64
 #define FinPr_invalid_height 64
 const uint8_t PROGMEM FinPr_invalid_bits[] = {
@@ -335,6 +341,7 @@ const uint8_t PROGMEM FinPr_invalid_bits[] = {
 ,0x00,0x00,0x03,0xe0,0xe3,0xff,0xe0,0x00
 ,0x00,0x00,0x01,0x80,0x00,0x7f,0x00,0x00
 };
+
 #define FinPr_failed_width 64
 #define FinPr_failed_height 64
 const uint8_t PROGMEM FinPr_failed_bits[] = {
@@ -403,6 +410,7 @@ const uint8_t PROGMEM FinPr_failed_bits[] = {
 ,0x00,0x01,0xff,0x80,0x3f,0xff,0xff,0xff
 ,0x00,0x00,0x3f,0x80,0x1f,0xff,0xff,0xfe
 };
+
 #define FinPr_scan_width 64
 #define FinPr_scan_height 64
 const uint8_t PROGMEM FinPr_scan_bits[] = {
@@ -471,6 +479,7 @@ const uint8_t PROGMEM FinPr_scan_bits[] = {
 ,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 ,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
+
 void setup() {
 
   Serial.begin(115200);
@@ -515,6 +524,7 @@ void loop() {
   ChecktoAddID();
   ChecktoDeleteID();
 }
+
 void DisplayFingerprintID(){
   if (FingerID > 0){
     display.clearDisplay();
@@ -541,10 +551,11 @@ void DisplayFingerprintID(){
     display.display();
   }
 }
-void SendFingerprintID( int finger ){
 
+void SendFingerprintID( int finger ){
   WiFiClient client;
   HTTPClient http;  
+
   postData = "FingerID=" + String(finger); 
   http.begin(client,link); 
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");   
@@ -652,9 +663,9 @@ int getFingerprintID() {
 }
 //******************Check if there a Fingerprint ID to delete******************
 void ChecktoDeleteID(){
-
-WiFiClient client;
+  WiFiClient client;
   HTTPClient http;    //Declare object of class HTTPClient
+
   //Post Data
   postData = "DeleteID=check"; // Add the Fingerprint ID to the Post array in order to send it
   // Post methode
@@ -727,8 +738,7 @@ uint8_t deleteFingerprint( int id) {
 }
 //******************Check if there a Fingerprint ID to add******************
 void ChecktoAddID(){
-
-WiFiClient client;
+  WiFiClient client;
   HTTPClient http;    //Declare object of class HTTPClient
   //Post Data
   postData = "Get_Fingerid=get_id"; // Add the Fingerprint ID to the Post array in order to send it
